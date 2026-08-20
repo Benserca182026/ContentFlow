@@ -25,10 +25,10 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Solo POST" });
 
-  const clave = process.env.OPENROUTER_API_KEY;
+  const clave = process.env.QWEN;
   if (!clave) {
     return res.status(503).json({
-      error: "Falta OPENROUTER_API_KEY en las variables de entorno de Vercel"
+      error: "Falta QWEN en las variables de entorno de Vercel"
     });
   }
 
