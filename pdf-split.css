@@ -1,0 +1,959 @@
+/* ---- Etiqueta DEMO (compartida) ----
+   Clase reutilizable para marcar cualquier control que PAREZCA una función real
+   pero sea simulación. Que se lea como advertencia, no como adorno.
+   Otros nodos pueden usarla: `<span class="demo-badge">DEMO · …</span>`.
+   Variante `.demo-badge.is-inline` para colocarla junto a otro control.
+   El segundo selector es necesario a propósito: `styles.css` tiene una regla
+   `.flow-node span` (título del nodo) que, por especificidad, se comería el
+   color y el margen del badge dentro de cualquier nodo del canvas. */
+.demo-badge,
+.flow-node .demo-badge {
+  display: block;
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #e0a63c;
+  border-left: 4px solid #d98a00;
+  border-radius: 8px;
+  background: #fdf3dd;
+  color: #6b4200;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.demo-badge.is-inline,
+.flow-node .demo-badge.is-inline {
+  display: inline-block;
+  padding: 3px 7px;
+  border-left-width: 1px;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+}
+
+.mock-pill {
+  background: #fff5e6;
+  border-color: #f0c489;
+  color: #8a5100;
+}
+
+.drop-zone {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+  padding: 22px 14px;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.drop-zone:hover,
+.drop-zone.is-hovered {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+}
+
+.drop-zone.has-file {
+  border-style: solid;
+  border-color: var(--accent);
+}
+
+.drop-zone input {
+  display: none;
+}
+
+.drop-zone small {
+  color: var(--muted);
+}
+
+.segmented {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.segmented button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 10px;
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.segmented button.is-active {
+  background: #111;
+  color: #fff;
+}
+
+.mode-hint,
+.cost-hint {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+#model-select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+}
+
+.run-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border: none;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.run-button:disabled {
+  background: #d7d9de;
+  color: #8a8d95;
+  cursor: not-allowed;
+}
+
+#run-log {
+  display: block;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f6f7f9;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+#approve-button {
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#approve-button:disabled {
+  background: #d7d9de;
+  color: #8a8d95;
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+.result-stage {
+  padding: 22px;
+  overflow: auto;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: 16px;
+}
+
+.empty-state {
+  max-width: 46ch;
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.piece-card {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 14px;
+  border: 1px solid rgba(20, 22, 28, 0.12);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(20, 24, 36, 0.1);
+}
+
+.piece-card.is-accepted {
+  border-color: var(--accent);
+  box-shadow: 0 14px 34px rgba(20, 24, 36, 0.14), 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.piece-preview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 128px;
+  border-radius: 14px;
+  background: repeating-linear-gradient(135deg, #f2f3f6, #f2f3f6 9px, #e9ebef 9px, #e9ebef 18px);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.piece-preview.has-image {
+  background-size: cover;
+  background-position: center;
+}
+
+.confidence-badge {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.82);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.piece-name {
+  font-size: 15px;
+  outline: none;
+}
+
+.piece-name:focus {
+  border-radius: 6px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.piece-card small {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.piece-actions {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.piece-actions button {
+  padding: 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.accept-button {
+  border: none;
+  background: #111;
+  color: #fff;
+}
+
+.is-accepted .accept-button {
+  background: var(--accent);
+}
+
+.discard-button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+}
+
+/* El mismo módulo, viviendo dentro de un nodo del canvas. */
+.pdf-split-node {
+  width: 300px;
+  display: grid;
+  gap: 9px;
+  align-content: start;
+}
+
+.pdf-split-node .node-drop {
+  padding: 14px 10px;
+  border-radius: 14px;
+}
+
+.pdf-split-node .node-drop strong {
+  font-size: 13px;
+  word-break: break-word;
+}
+
+.pdf-split-node .node-drop small,
+.pdf-split-node .mode-hint,
+.pdf-split-node .cost-hint {
+  margin-top: 0;
+  font-size: 11.5px;
+}
+
+.pdf-split-node .segmented {
+  padding: 3px;
+}
+
+.pdf-split-node .segmented button {
+  padding: 6px 8px;
+  font-size: 12.5px;
+}
+
+.pdf-split-node select {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  font-size: 12.5px;
+}
+
+.pdf-split-node .run-button {
+  margin-top: 0;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.pdf-split-node output {
+  display: block;
+  padding: 8px 9px;
+  border-radius: 10px;
+  background: #f6f7f9;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.node-pieces {
+  display: grid;
+  gap: 6px;
+}
+
+.piece-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 7px;
+  align-items: center;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #fff;
+}
+
+.piece-row.is-accepted {
+  border-color: var(--node-color, var(--accent));
+  background: color-mix(in srgb, var(--node-color, var(--accent)) 7%, #fff);
+}
+
+.piece-row strong {
+  font-size: 12.5px;
+  outline: none;
+}
+
+.piece-confidence {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.piece-toggle {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.piece-row.is-accepted .piece-toggle {
+  background: var(--node-color, var(--accent));
+}
+
+.view-photo-node {
+  width: 260px;
+  display: grid;
+  gap: 9px;
+  align-content: start;
+}
+
+.view-photo-drop {
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  padding: 10px;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.view-photo-drop:hover,
+.view-photo-drop.is-hovered {
+  border-color: var(--node-color, var(--accent));
+  background: color-mix(in srgb, var(--node-color, var(--accent)) 6%, #fff);
+}
+
+.view-photo-drop.has-image {
+  border-style: solid;
+  border-color: var(--node-color, var(--accent));
+  padding: 6px;
+}
+
+.view-photo-drop input {
+  display: none;
+}
+
+.view-photo-drop img {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.view-photo-hint {
+  color: var(--node-color, var(--accent));
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.download-pdf-link,
+.design-node .download-button {
+  display: block;
+}
+
+.design-node {
+  width: 300px;
+  display: grid;
+  gap: 9px;
+  align-content: start;
+}
+
+.design-node select {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  font-size: 12.5px;
+}
+
+.design-downloads {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 7px;
+}
+
+.download-button {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--node-color, var(--accent));
+  font-size: 11.5px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.download-button:hover {
+  border-color: var(--node-color, var(--accent));
+}
+
+.texture-batch-node {
+  width: 320px;
+  display: grid;
+  gap: 9px;
+  align-content: start;
+}
+
+.resources-node {
+  width: 300px;
+  display: grid;
+  gap: 9px;
+  align-content: start;
+}
+
+.resources-node output {
+  display: block;
+  padding: 8px 9px;
+  border-radius: 10px;
+  background: #f6f7f9;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.orchestrator-node {
+  width: 380px;
+  max-height: 640px;
+  overflow: auto;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.orch-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.orch-summary {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f6f7f9;
+  font-size: 12px;
+}
+
+.orch-concurrency {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.orch-concurrency input {
+  width: 46px;
+  padding: 3px 5px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font: inherit;
+}
+
+.orch-group h3 {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.orch-group {
+  display: grid;
+  gap: 6px;
+}
+
+.orch-task {
+  display: grid;
+  gap: 5px;
+  padding: 8px 9px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #fff;
+}
+
+.orch-task header {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.orch-state {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.orch-task.is-bloqueada {
+  opacity: 0.5;
+}
+
+.orch-task.is-disponible {
+  border-color: var(--node-color, var(--accent));
+}
+
+.orch-task.is-validada {
+  border-color: #17935f;
+  background: #f2fbf6;
+}
+
+.orch-task.is-validada .orch-state {
+  color: #17935f;
+}
+
+.orch-task.is-devuelta {
+  border-color: #d92c2c;
+}
+
+.orch-criterio {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.orch-motivo {
+  color: #d92c2c;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.orch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.orch-actions .download-button {
+  padding: 5px 10px;
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.orch-approve {
+  border-color: #17935f;
+  color: #17935f;
+}
+
+.orch-reject {
+  border-color: #d92c2c;
+  color: #d92c2c;
+}
+
+.batch-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.command-copy-chip {
+  padding: 5px 10px;
+  border: 1px dashed var(--node-color, var(--accent));
+  border-radius: 999px;
+  background: #fff;
+  color: var(--node-color, var(--accent));
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.batch-queue {
+  display: grid;
+  gap: 8px;
+}
+
+.batch-task {
+  display: grid;
+  gap: 6px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.batch-task.is-done {
+  border-color: var(--node-color, var(--accent));
+  background: color-mix(in srgb, var(--node-color, var(--accent)) 6%, #fff);
+}
+
+.batch-task header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.batch-state {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.batch-task.is-done .batch-state {
+  color: var(--node-color, var(--accent));
+}
+
+.batch-task-actions {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 6px;
+}
+
+.batch-deliver {
+  cursor: pointer;
+}
+
+.batch-deliver input {
+  display: none;
+}
+
+.batch-task-preview {
+  display: block;
+  width: 100%;
+  border-radius: 9px;
+}
+
+.batch-task summary {
+  color: var(--node-color, var(--accent));
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.batch-task textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.compose-controls {
+  display: grid;
+  gap: 6px;
+}
+
+.compose-controls input[type="range"] {
+  width: 100%;
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.design-result {
+  margin: 0;
+}
+
+.design-result img {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.design-rules {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.design-node output {
+  display: block;
+  padding: 8px 9px;
+  border-radius: 10px;
+  background: #f6f7f9;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.pieces-summary {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+/* ---- Explorador de PDF (la lupa) ---- */
+/* La lupa es instrumento de inspección: fondo casi transparente a propósito —
+   el medio del conocimiento no añade nada de sí a lo conocido. */
+.explorer-node {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(6px);
+  border: 1.5px dashed rgba(37, 68, 255, 0.45);
+  width: 300px;
+}
+.explorer-lupa {
+  font-size: 52px;
+  line-height: 1;
+  text-align: center;
+  filter: drop-shadow(0 4px 10px rgba(37, 68, 255, 0.25));
+  user-select: none;
+}
+.element-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+.element-cell {
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(37, 68, 255, 0.25);
+  /* damero: se ve que el fondo es transparencia real, no blanco */
+  background:
+    linear-gradient(45deg, #e8ebf5 25%, transparent 25%, transparent 75%, #e8ebf5 75%),
+    linear-gradient(45deg, #e8ebf5 25%, #ffffff 25%, #ffffff 75%, #e8ebf5 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 6px 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.element-cell img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.explorer-variantes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #33406a;
+}
+.explorer-variantes select {
+  border: 1px solid rgba(37, 68, 255, 0.3);
+  border-radius: 8px;
+  padding: 2px 8px;
+}
+
+/* ---- Dashboard de gasto de API (fijo) ---- */
+.cost-dashboard-node {
+  width: 210px;
+  background: linear-gradient(165deg, #ffffff 0%, #f4f7ff 100%);
+  border: 1px solid rgba(37, 68, 255, 0.28);
+  box-shadow: 0 6px 18px rgba(37, 68, 255, 0.10);
+}
+.cost-dashboard-node > span {
+  color: #2544ff;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.cost-total {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0 2px;
+}
+.cost-total strong {
+  font-size: 22px;
+  color: #16255c;
+}
+.cost-total small {
+  color: #6a76a3;
+  font-size: 10px;
+}
+.cost-section {
+  border-top: 1px solid rgba(37, 68, 255, 0.12);
+  padding-top: 5px;
+  margin-top: 5px;
+}
+.cost-section > small {
+  color: #2544ff;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.cost-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  color: #33406a;
+  padding: 2px 0;
+}
+.cost-row strong {
+  color: #16255c;
+  font-variant-numeric: tabular-nums;
+}
+.cost-row-model span {
+  color: #6a76a3;
+}
+.cost-empty {
+  font-size: 11px;
+  color: #9aa3c4;
+}
+
+/* ---- Nodos de plan: vidrio azulado con borde neón ----
+   Estilo distinto a propósito: el plan no es un dato más del canvas, es su
+   gobierno — y lo que gobierna debe distinguirse de lo gobernado. */
+.flow-node.plan-neon-node {
+  width: 300px;
+  background:
+    linear-gradient(165deg, rgba(6, 14, 42, 0.74) 0%, rgba(10, 26, 70, 0.60) 100%);
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
+  border: 1px solid rgba(102, 176, 255, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(130, 205, 255, 0.16),
+    0 0 24px rgba(58, 130, 255, 0.34),
+    inset 0 0 26px rgba(60, 140, 255, 0.13);
+  color: #d9e8ff;
+}
+
+.flow-node.plan-neon-node > span {
+  color: #6fe2ff;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  text-shadow: 0 0 10px rgba(90, 224, 255, 0.55);
+}
+
+.flow-node.plan-neon-node p {
+  color: #cddffb;
+  font-size: 12.5px;
+  line-height: 1.52;
+  margin: 8px 0 0;
+  /* Las peticiones traen saltos de linea significativos: se respetan. */
+  white-space: pre-wrap;
+}
+
+.flow-node.plan-neon-node p:focus {
+  outline: 1px solid rgba(111, 226, 255, 0.6);
+  outline-offset: 3px;
+}
+
+.flow-node.plan-neon-node .node-delete {
+  color: #cdeaff;
+  background: rgba(10, 26, 70, 0.7);
+  border-color: rgba(111, 226, 255, 0.4);
+}
+
+.flow-node.plan-neon-node .node-resize {
+  background: linear-gradient(135deg, transparent 46%, rgba(140, 215, 255, 0.55) 46%, rgba(140, 215, 255, 0.55) 56%, transparent 56%, transparent 68%, rgba(140, 215, 255, 0.55) 68%, rgba(140, 215, 255, 0.55) 78%, transparent 78%);
+}
+
+/* Celda de elemento del explorador con su pie de tipo e identidad. La figura
+   es 46x46 con overflow oculto, asi que el pie vive fuera de ella. */
+.element-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 46px;
+}
+
+.element-item .pieces-summary {
+  font-size: 9.5px;
+  text-align: center;
+  line-height: 1.2;
+}

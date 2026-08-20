@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowForge Visual — Referencias PDF</title>
+    <link rel="stylesheet" href="./helmet-pdf-references.css" />
+  </head>
+  <body>
+    <main class="pdf-flow-shell">
+      <header class="pdf-flow-header">
+        <a class="back-link" href="./design-project.html?project=validar-alcance">← Volver al canvas</a>
+        <div><p>Prueba aislada · sin API</p><h1>Referencias PDF por vista</h1></div>
+        <span class="mock-badge">Mock local</span>
+      </header>
+
+      <section class="pdf-flow-layout">
+        <aside class="control-panel">
+          <h2>1. Documento de referencia</h2>
+          <label class="file-drop" for="pdf-input">
+            <input id="pdf-input" type="file" accept="application/pdf" />
+            <strong>Seleccionar PDF</strong>
+            <span id="pdf-name">A3 - HALLOWEEN.pdf · referencia cargada</span>
+          </label>
+          <label class="file-drop secondary" for="texture-input">
+            <input id="texture-input" type="file" accept="image/png,image/jpeg" />
+            <strong>Adjuntar textura</strong><span id="texture-name">Bob Esponja / patrón de referencia</span>
+          </label>
+          <p class="small-note">El PDF queda en esta sesión del navegador. Esta copia no lo sube ni llama una API.</p>
+
+          <h2>2. Vista a anotar</h2>
+          <div class="view-selector" role="group" aria-label="Vista del casco">
+            <button type="button" class="active" data-view="Lateral izquierda">Lateral izq.</button>
+            <button type="button" data-view="Frontal">Frontal</button>
+            <button type="button" data-view="Lateral derecha">Lateral der.</button>
+            <button type="button" data-view="Trasera">Trasera</button>
+          </div>
+
+          <h2>3. Captura del PDF</h2>
+          <label>Página <input id="page-number" type="number" min="1" value="1" /></label>
+          <button id="capture-reference" type="button" class="primary">Registrar captura de referencia</button>
+          <output id="capture-status">Lista para registrar una referencia en alta calidad.</output>
+          <canvas id="pdf-page-preview" aria-label="Vista previa de página PDF"></canvas>
+
+          <details open>
+            <summary>Decisión dirigida por ti</summary>
+            <label>Elemento <input id="directed-label" value="Textura de fondo Halloween" /></label>
+            <label>Instrucción <textarea id="directed-note">Usar el patrón como fondo del casco. Conservar patrón, color, tonalidad e identidad visual.</textarea></label>
+            <button type="button" id="add-directed">Añadir anotación dirigida</button>
+          </details>
+
+          <details>
+            <summary>Decisión aleatoria controlada</summary>
+            <label>Elemento <input id="random-label" value="Accesorio secundario" /></label>
+            <label>Rango permitido <textarea id="random-note">Puede variar tamaño y ubicación puntual; no puede cambiar la estructura, el patrón ni la silueta.</textarea></label>
+            <button type="button" id="add-random">Añadir anotación aleatoria</button>
+          </details>
+        </aside>
+
+        <section class="reference-workspace" aria-label="Canvas de referencias PDF">
+          <div class="workspace-bar"><span id="active-view">Lateral izquierda</span><span>Vista original + referencias anotadas</span></div>
+          <div id="reference-canvas" class="reference-canvas">
+            <article class="helmet-card" aria-label="Vista lateral del casco">
+              <div class="helmet-shape"><div class="visor"></div><div class="spoiler"></div><span>VISTA BASE</span></div>
+              <p>Imagen base de la vista seleccionada</p>
+            </article>
+            <div id="annotation-layer" class="annotation-layer" aria-live="polite"></div>
+          </div>
+          <section class="capture-strip" aria-label="Capturas guardadas">
+            <h2>Capturas del PDF</h2>
+            <div id="capture-list" class="capture-list">
+              <article class="capture-card"><strong>Página 1</strong><span>Referencia inicial · alta calidad</span></article>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="./helmet-pdf-references.js"></script>
+  </body>
+</html>

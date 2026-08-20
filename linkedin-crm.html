@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CRM LinkedIn · 18 de agosto</title>
+    <link rel="stylesheet" href="./linkedin-crm.css" />
+  </head>
+  <body class="crm-shell">
+    <header class="crm-topbar">
+      <div class="crm-brand"><span class="crm-mark">F</span><strong>FlowForge · CRM LinkedIn</strong></div>
+      <a href="./design-project.html?project=linkedin-prospeccion">← Volver al canvas</a>
+    </header>
+    <main class="crm-main">
+      <div class="crm-heading">
+        <div>
+          <p class="crm-kicker">Seguimiento manual · lote 18 de agosto</p>
+          <h1>Prospectos y conversaciones</h1>
+          <p>Registra qué se envió, qué servicio tiene sentido ofrecer, qué respondió cada persona y cuál es la próxima acción. Nada se envía automáticamente a LinkedIn.</p>
+        </div>
+        <div class="crm-summary" id="crm-summary" aria-label="Resumen del CRM"></div>
+      </div>
+      <div class="crm-toolbar">
+        <input id="crm-search" type="search" placeholder="Buscar prospecto, empresa o tema…" aria-label="Buscar prospecto" />
+        <select id="crm-filter" aria-label="Filtrar por estado"><option value="Todos">Todos los estados</option></select>
+        <button class="crm-button" id="crm-add" type="button">+ Añadir prospecto</button>
+        <span class="crm-status" id="crm-status" role="status"></span>
+      </div>
+      <section class="crm-grid" id="crm-grid" aria-live="polite"></section>
+    </main>
+    <script src="./supabase.js"></script>
+    <script src="./linkedin-crm.js"></script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowForge Visual — Portafolio de proyectos</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand-mark">F</div>
+        <nav class="topnav" aria-label="Navegación principal">
+          <a href="./index.html" aria-current="page">Portafolio</a>
+          <a href="./design-project.html?project=mobile-design">Visual Flow</a>
+          <button class="ghost-button" type="button" data-command="export-prompts">Export Markdown</button>
+        </nav>
+        <div class="operator-pill">Tesla · Mock Mode</div>
+      </header>
+
+      <section class="hero portfolio-hero">
+        <div>
+          <p class="eyebrow">FlowForge Visual</p>
+          <h1>Proyectos visuales</h1>
+          <p class="lede">
+            Portafolio operativo para abrir proyectos, revisar su estado y entrar al flujo visual
+            de tareas, canvases y subtareas.
+          </p>
+        </div>
+        <div class="hero-metrics" aria-label="Resumen del portafolio">
+          <span><strong id="project-metric">4</strong> proyectos</span>
+          <span><strong id="api-metric">1</strong> API activa</span>
+          <span><strong>DB</strong> vivo</span>
+        </div>
+        <button type="button" id="new-project" class="ghost-button">+ Nuevo proyecto</button>
+        <label class="portfolio-filter">Filtrar proyectos
+          <select id="portfolio-filter" aria-label="Filtrar proyectos">
+            <option value="all">Todos</option>
+            <option value="linkedin">Solo LinkedIn</option>
+            <option value="other">Otros proyectos</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="project-grid" id="project-grid" aria-label="Portafolio de proyectos FlowForge">
+        <a class="project-card project-blue" href="./design-project.html?project=spiderman">
+          <span class="status-pill active">In Progress</span>
+          <h2>Proyecto Spiderman</h2>
+          <p>Separación de vistas del casco, fondo compartido y orquestación de agentes por vista.</p>
+          <div class="project-meta">
+            <span>2 tareas</span>
+            <span>Orquestador</span>
+          </div>
+        </a>
+
+        <a class="project-card project-blue" href="./design-project.html?project=mobile-design">
+          <span class="status-pill active">In Progress</span>
+          <h2>Mobile Design</h2>
+          <p>Exploración mobile-first para coordinar story, prompts, outputs visuales y revisión.</p>
+          <div class="project-meta">
+            <span>5 tareas</span>
+            <span>Canvas activo</span>
+          </div>
+        </a>
+
+        <a class="project-card project-amber" href="./design-project.html?project=validar-alcance">
+          <span class="status-pill review">Scope Check</span>
+          <h2>Validar alcance sin API</h2>
+          <p>Proyecto de control para documentar límites, comandos mock y autorizaciones futuras.</p>
+          <div class="project-meta">
+            <span>4 tareas</span>
+            <span>Riesgo bajo</span>
+          </div>
+        </a>
+
+        <a class="project-card project-green" href="./design-project.html?project=campana-lanzamiento">
+          <span class="status-pill new">New</span>
+          <h2>Campaña lanzamiento</h2>
+          <p>Sistema visual para convertir mensajes de lanzamiento en escenas, piezas y revisiones.</p>
+          <div class="project-meta">
+            <span>6 tareas</span>
+            <span>Brief inicial</span>
+          </div>
+        </a>
+
+        <a class="project-card project-violet" href="./design-project.html?project=catalogo-experimental">
+          <span class="status-pill lab">Experimental</span>
+          <h2>Catálogo experimental</h2>
+          <p>Banco de pruebas para comparar estilos, prompts y variantes sin depender de servicios externos.</p>
+          <div class="project-meta">
+            <span>5 tareas</span>
+            <span>Outputs mock</span>
+          </div>
+        </a>
+      </section>
+
+      <aside class="mock-panel" aria-label="Capa mock de comandos">
+        <h2>Capa mock para futura integración</h2>
+        <p>
+          Esta portada no llama APIs ni modifica servicios externos. Los comandos solo describen
+          intención operativa para futuras tareas/agentes autorizados.
+        </p>
+        <div class="mock-actions">
+          <button type="button" data-command="prepare-agent-prompt">Preparar prompt agente</button>
+          <button type="button" data-command="queue-render">Simular cola visual</button>
+          <button type="button" data-command="save-markdown">Guardar Markdown mock</button>
+        </div>
+        <output id="command-log">Sin comandos ejecutados.</output>
+      </aside>
+    </main>
+
+    <script src="./supabase.js"></script>
+    <script src="./shared.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>

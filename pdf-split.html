@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowForge Visual — Separar PDF (simulación)</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./pdf-split.css" />
+  </head>
+  <body>
+    <main class="project-shell">
+      <header class="topbar">
+        <div class="brand-mark">F</div>
+        <nav class="topnav" aria-label="Navegación principal">
+          <a href="./index.html">Portafolio</a>
+          <a href="./design-project.html?project=spiderman">Visual Flow</a>
+          <a href="./pdf-split.html" aria-current="page">Separar PDF</a>
+        </nav>
+        <div class="operator-pill mock-pill">Simulación · sin API</div>
+      </header>
+
+      <section class="canvas-layout">
+        <aside class="side-panel">
+          <p class="eyebrow">Módulo de entrada</p>
+          <h1>Separar PDF en piezas</h1>
+          <p>
+            Cargas el PDF del modelo y el módulo propone las piezas por separado. Aquí nada se
+            envía a ningún servicio: es la interfaz del flujo, con los tiempos y los estados que
+            tendría al conectarse a un modelo de bajo costo.
+          </p>
+
+          <div class="command-card">
+            <h2>1 · Archivo de origen</h2>
+            <label class="drop-zone" id="drop-zone">
+              <input type="file" id="file-input" accept="application/pdf,image/png,image/jpeg" />
+              <strong id="drop-title">Arrastra el PDF aquí</strong>
+              <small id="drop-hint">o haz clic para elegirlo. También acepta PNG/JPG.</small>
+            </label>
+          </div>
+
+          <div class="command-card">
+            <h2>2 · Qué quieres extraer</h2>
+            <div class="segmented" role="group" aria-label="Tipo de separación">
+              <button type="button" data-mode="vistas" class="is-active">Vistas</button>
+              <button type="button" data-mode="secciones">Secciones</button>
+            </div>
+            <small class="mode-hint" id="mode-hint">
+              Vistas: frontal, laterales, trasera y superior del mismo casco.
+            </small>
+          </div>
+
+          <div class="command-card">
+            <h2>3 · Modelo</h2>
+            <label class="field-label" for="model-select">Motor de separación</label>
+            <select id="model-select">
+              <option value="haiku" data-cost="≈ $0.004 por PDF · el más barato">Claude Haiku 4.5 — bajo costo</option>
+              <option value="mini" data-cost="≈ $0.006 por PDF">GPT mini — bajo costo</option>
+              <option value="local" data-cost="$0 · recorte por reglas, sin modelo">Local — sin modelo</option>
+            </select>
+            <small class="cost-hint" id="cost-hint">≈ $0.004 por PDF · el más barato</small>
+
+            <button type="button" class="run-button" id="run-button" disabled>
+              Separar automáticamente
+            </button>
+            <output id="run-log">Esperando archivo.</output>
+          </div>
+        </aside>
+
+        <section class="workbench">
+          <div class="canvas-toolbar">
+            <div>
+              <p class="eyebrow">Piezas detectadas</p>
+              <h2 id="result-title">Todavía sin procesar</h2>
+              <p id="result-description">
+                Carga un archivo y pulsa separar. Cada pieza aparece como una tarjeta que puedes
+                renombrar, aceptar o descartar antes de mandarla al canvas.
+              </p>
+            </div>
+            <div class="zoom-controls">
+              <span id="accepted-count">0 aceptadas</span>
+              <button type="button" id="approve-button" disabled>Aprobar selección</button>
+            </div>
+          </div>
+
+          <section class="result-stage">
+            <div class="result-grid" id="result-grid"></div>
+            <p class="empty-state" id="empty-state">
+              Sin piezas todavía. El resultado de esta pantalla es una maqueta: sirve para decidir
+              cómo debe comportarse el flujo antes de gastar una sola llamada real.
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="./pdf-split-data.js"></script>
+    <script src="./pdf-split.js"></script>
+  </body>
+</html>
