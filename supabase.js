@@ -1,7 +1,7 @@
 // Clave publishable a propósito: esto corre en el navegador y cualquier clave
 // aquí es pública. La protección real son las políticas RLS de las tablas.
-const FLOWFORGE_SUPABASE_URL = "https://uvlgvibecokamasxfnly.supabase.co";
-const FLOWFORGE_SUPABASE_KEY = "sb_publishable_qSet6qQNN9eLCAPECSUfnQ_TYJ5mGSH";
+const FLOWFORGE_SUPABASE_URL = "https://jfvmuemyjcdesnoqeaix.supabase.co";
+const FLOWFORGE_SUPABASE_KEY = "sb_publishable_7l3WptofYtgvkDUHKyfwPQ_x0nl0lc1";
 
 const FlowForgeSupabase = {
   enabled: Boolean(FLOWFORGE_SUPABASE_URL && FLOWFORGE_SUPABASE_KEY),
